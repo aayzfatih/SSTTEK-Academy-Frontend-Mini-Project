@@ -1,0 +1,27 @@
+table {
+  border-collapse: collapse;
+  border-radius: 2em;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  width: 100%;
+}
+th {
+  text-align: center;
+  padding: 1em;
+  background-color: #495057;
+  color: white;
+  width: 20%;
+}
+
+table th:last-child {
+  width: auto;
+}
+
+.active {
+  background-color: orange;
+}
+.inactive {
+  background-color: #1c7ed6;
+}
