@@ -32,7 +32,7 @@ function Todo({ onActive, todo, onDeleteClick, onUpdateClick }) {
       const activeIndex = timers.findIndex(
         (timer) => timer.id === activeTimer.id
       );
-      if (activeIndex !== 1) {
+      if (activeIndex !== -1) {
         const uptatedTimers = [...timers];
         uptatedTimers[activeIndex].elapsedTime +=
           new Date() - activeTimer.startTime;
@@ -52,6 +52,7 @@ function Todo({ onActive, todo, onDeleteClick, onUpdateClick }) {
       const activeIndex = timers.findIndex(
         (timer) => timer.id === activeTimer.id
       );
+      console.log(activeIndex);
       if (activeIndex !== -1) {
         const updatedTimers = [...timers];
         updatedTimers[activeIndex].elapsedTime += elapsedTime;
