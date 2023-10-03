@@ -2,13 +2,13 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Settings from "./components/Settings";
 import TodoListItems from "./components/TodoListItems";
-import Navbar from "./components/Navbar";
 import ShowBar from "./components/ShowBar";
+import Header from "./components/Header";
 function App() {
   return (
     <div>
       <ShowBar>
-        <Navbar />
+        <Header />
       </ShowBar>
       <Routes>
         <Route path="/" element={<Login />} />
