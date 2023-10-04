@@ -12,7 +12,7 @@ function TodoList({ todos, onDeleteClick, onUpdateClick }) {
     <div className="todos">
       <table>
         <tr>
-          <th>Todo</th>
+          <th>Todo List</th>
           <th>Tahmini Süre</th>
           <th>Harcanan Süre</th>
           <th>Actions</th>
