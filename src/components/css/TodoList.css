@@ -1,3 +1,6 @@
+html {
+  background-image: linear-gradient(to right, #b6fbff, #83a4d4);
+}
 table {
   border-collapse: collapse;
   border-radius: 2em;

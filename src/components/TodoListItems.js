@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import TodoList from "./TodoList";
-import "./css/TodoListItems.css";
+
 function TodoListItems() {
   const [todos, setTodos] = useState([]);
   useEffect(() => {

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./css/SearchBar.css";
 
 function SearchBar({ onSubmit, todos }) {
   const [input, setInput] = useState();
@@ -23,22 +22,31 @@ function SearchBar({ onSubmit, todos }) {
   };
   const color = todos.length === 0 ? "#2b8a3e" : "#343a40";
   return (
-    <div className="search-bar">
-      <h1 style={{ color: color }}>To-do List</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="flex flex-col items-center mb-3 ">
+      <h1 className="text-4xl font-semibold mt-24 " style={{ color: color }}>
+        To-do List
+      </h1>
+      <form
+        className="flex flex-col items-center gap-1"
+        onSubmit={handleSubmit}
+      >
         <input
+          className="rounded-lg text-gray-800 bg-gray-200 w-96 mt-2 p-2 focus:bg-gray-100 focus:outline-none"
           type="text"
           placeholder="Yapilacaklar"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
         <input
+          className="rounded-lg bg-gray-200 w-96 mt-2 p-2 focus:bg-gray-100 focus:outline-none"
           type="number"
           placeholder="Tahmini Sure (saat)"
           value={time}
           onChange={handleChange}
         />
-        <button>Ekle</button>
+        <button className="bg-blue-500 w-96 text-white hover:bg-blue-700 mt-4 p-3 rounded-full">
+          Ekle
+        </button>
       </form>
     </div>
   );
