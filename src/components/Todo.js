@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./css/Todo.css";
 
 import EditTodo from "./EditTodo";
-function Todo({ onActive, todo, onDeleteClick, onUpdateClick }) {
+function Todo({ todo, onDeleteClick, onUpdateClick }) {
   const [editTodo, setEditTodo] = useState(false);
-  const [color, setColor] = useState(null);
+  const [color, setColor] = useState("");
   const [completedDuty, setCompletedDuty] = useState(false);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
-  const [activeTimer, setActiveTimer] = useState(null);
-  const [timers, setTimers] = useState([]);
-
+  const [workingRow, setWorkingRow] = useState(0);
+  const timerIdRef = useRef(0);
+  const [count, setCount] = useState(0);
   const handleDeleteClick = () => {
-    alert("emin misiniz?");
+    alert("Emin misiniz?");
     onDeleteClick(todo.id);
   };
   const handleEditClick = () => {
@@ -22,56 +22,33 @@ function Todo({ onActive, todo, onDeleteClick, onUpdateClick }) {
   };
 
   const handleStartedTimeClick = (id) => {
-    const newTimer = {
-      id: id,
-      startTime: new Date(),
-      elapsedTime: 0,
-    };
-    setTimers([...timers, newTimer]);
-    if (activeTimer) {
-      const activeIndex = timers.findIndex(
-        (timer) => timer.id === activeTimer.id
-      );
-      if (activeIndex !== -1) {
-        const uptatedTimers = [...timers];
-        uptatedTimers[activeIndex].elapsedTime +=
-          new Date() - activeTimer.startTime;
-        setTimers(uptatedTimers);
-      }
-    }
-    setActiveTimer(newTimer);
-    onActive(id);
+    if (timerIdRef.current) return;
+    timerIdRef.current = setInterval(() => setCount((c) => c + 1), 1000);
+    setWorkingRow(id);
     setButtonDisabled(true);
   };
-  const handleFinishedClick = () => {
-    if (activeTimer) {
-      const stopTime = new Date();
-      const elapsedTime =
-        activeTimer.elapsedTime + (stopTime - activeTimer.startTime);
 
-      const activeIndex = timers.findIndex(
-        (timer) => timer.id === activeTimer.id
-      );
-      if (activeIndex !== -1) {
-        const updatedTimers = [...timers];
-        updatedTimers[activeIndex].elapsedTime += elapsedTime;
-        if (
-          Math.floor(updatedTimers[activeIndex].elapsedTime / 3600000) >=
-          todo.time
-        ) {
-          setColor("red");
-        }
-        setTimers(updatedTimers);
-      }
-      setActiveTimer(null);
-    }
-    onActive(null);
+  const handleFinishedClick = () => {
+    clearInterval(timerIdRef.current);
+    timerIdRef.current = 0;
+    setWorkingRow(null);
     setButtonDisabled(false);
   };
 
   const handleDutyClick = () => {
     setCompletedDuty(true);
     setColor("#51cf66");
+  };
+  useEffect(() => {
+    return () => clearInterval(timerIdRef.current);
+  }, []);
+
+  const secondsToHHMMSS = () => {
+    const hours = Math.floor(count / 3600);
+    const minutes = Math.floor((count - hours * 3600) / 60);
+    const seconds = count - hours * 3600 - minutes * 60;
+
+    return hours + ":" + minutes + ":" + seconds;
   };
 
   return (
@@ -85,28 +62,11 @@ function Todo({ onActive, todo, onDeleteClick, onUpdateClick }) {
         />
       ) : (
         <div>
-          <table>
+          <table className={workingRow === todo.id ? "active" : " inactive"}>
             <tr style={{ backgroundColor: color }}>
               <td>{todo.text}</td>
               <td>{todo.time} saat</td>
-              <td>
-                {timers.slice(0, 1).map((item) => {
-                  let seconds = Math.floor(item.elapsedTime / 1000);
-                  let minutes = Math.floor(seconds / 60);
-                  let hours = Math.floor(minutes / 60);
-                  seconds %= 60;
-                  minutes %= 60;
-                  hours %= 60;
-                  seconds = Math.min(Math.max(seconds, 0), 60);
-                  minutes = Math.min(Math.max(minutes, 0), 60);
-                  hours = Math.min(Math.max(hours, 0), 60);
-                  return (
-                    <div>
-                      {hours}:{minutes}:{seconds}
-                    </div>
-                  );
-                })}
-              </td>
+              <td>{secondsToHHMMSS()}</td>
               <td>
                 {completedDuty ? (
                   <button className="delete-button" onClick={handleDeleteClick}>

@@ -21,10 +21,3 @@ th {
 table th:last-child {
   width: auto;
 }
-
-.active {
-  background-color: orange;
-}
-.inactive {
-  background-color: #1c7ed6;
-}
