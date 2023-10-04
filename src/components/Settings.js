@@ -109,7 +109,7 @@ function Settings() {
   }
 
   return (
-    <div className="container my-24 mx-auto md:px-6">
+    <div className="container  mx-auto md:px-6">
       <section className="mb-32">
         <div className="relative h-[300px] overflow-hidden bg-cover bg-[50%] bg-no-repeat bg-[url('https://mdbcdn.b-cdn.net/img/new/textures/full/171.jpg')]"></div>
         <div className="container px-6 md:px-12">
