@@ -3,25 +3,31 @@ import "./css/TodoList.css";
 
 function TodoList({ todos, onDeleteClick, onUpdateClick }) {
   return (
-    <div className="todos">
+    <div>
       <table>
-        <tr>
-          <th>Todo</th>
-          <th>Tahmini Süre</th>
-          <th>Harcanan Süre</th>
-          <th>Actions</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>Todo</th>
+            <th>Tahmini Süre</th>
+            <th>Harcanan Süre</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
       </table>
       <table>
-        {todos.map((todo) => (
-          <tr key={todo.id}>
-            <Todo
-              todo={todo}
-              onDeleteClick={onDeleteClick}
-              onUpdateClick={onUpdateClick}
-            ></Todo>
-          </tr>
-        ))}
+        <tbody>
+          {todos.map((todo) => (
+            <tr key={todo.id}>
+              <td>
+                <Todo
+                  todo={todo}
+                  onDeleteClick={onDeleteClick}
+                  onUpdateClick={onUpdateClick}
+                ></Todo>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
