@@ -12,8 +12,8 @@ function App() {
       </ShowBar>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/todo" element={<TodoListItems />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route path="todo" element={<TodoListItems />} />
+        <Route path="settings" element={<Settings />} />
       </Routes>
     </div>
   );

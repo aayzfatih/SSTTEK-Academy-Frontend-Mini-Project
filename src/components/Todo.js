@@ -3,7 +3,7 @@ import EditTodo from "./EditTodo";
 
 function Todo({ todo, onDeleteClick, onUpdateClick }) {
   const [editTodo, setEditTodo] = useState(false);
-  const [color, setColor] = useState("blue-500");
+  const [bgColor, setbgColor] = useState("bg-blue-500");
   const [completedDuty, setCompletedDuty] = useState(false);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const timerIdRef = useRef(0);
@@ -23,19 +23,20 @@ function Todo({ todo, onDeleteClick, onUpdateClick }) {
   const handleStartedTimeClick = () => {
     if (timerIdRef.current) return;
     timerIdRef.current = setInterval(() => setCount((c) => c + 1), 1000);
-    setColor("orange-700");
+    setbgColor("bg-amber-500");
     setButtonDisabled(true);
   };
+
   const handleFinishedClick = () => {
     clearInterval(timerIdRef.current);
     timerIdRef.current = 0;
-    setColor("blue-500");
+    setbgColor("bg-blue-500");
     setButtonDisabled(false);
   };
 
   const handleDutyClick = () => {
     setCompletedDuty(true);
-    setColor("green-500");
+    setbgColor("bg-green-500");
   };
   useEffect(() => {
     return () => clearInterval(timerIdRef.current);
@@ -59,7 +60,7 @@ function Todo({ todo, onDeleteClick, onUpdateClick }) {
           onUpdateClick={onUpdateClick}
         />
       ) : (
-        <div className={`bg-${color} flex flex-row rounded-full mb-1 py-2`}>
+        <div className={`${bgColor} flex flex-row rounded-full mb-1 py-2`}>
           <div className="w-1/5 text-white flex flex-row items-center justify-center">
             {todo.text}
           </div>
