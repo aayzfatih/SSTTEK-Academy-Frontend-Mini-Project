@@ -34,7 +34,7 @@ function TodoList({
   }, [workingRow]);
   useEffect(() => {
     onChangeElapsedTime(workingRow, time);
-  }, [time]);
+  }, [onChangeElapsedTime, time, workingRow]);
   return (
     <div>
       <table>

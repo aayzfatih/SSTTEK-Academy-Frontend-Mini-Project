@@ -68,7 +68,7 @@ function Todo({ onActive, todo, onDeleteClick, onUpdateClick }) {
               <div>
                 <button
                   type="button"
-                  className="px-4 py-2 text-sm font-medium text-white bg-red-500 border-gray-200 rounded-full hover:bg-red-300 focus:ring-2 focus:ring-gray-300"
+                  className="px-4 py-2 text-sm font-medium text-white bg-red-800 border-gray-200 rounded-full hover:bg-red-600 focus:ring-2 focus:ring-gray-300"
                   onClick={handleDeleteClick}
                 >
                   Sil
@@ -83,7 +83,7 @@ function Todo({ onActive, todo, onDeleteClick, onUpdateClick }) {
                   Başlat
                 </button>
                 <button
-                  className="px-4 py-2 m-1  text-sm font-medium text-white bg-orange-800 border-gray-200 rounded-full hover:bg-orange-600 focus:ring-2 focus:ring-gray-300"
+                  className="px-4 py-2 m-1  text-sm font-medium text-white bg-orange-500 border-gray-200 rounded-full hover:bg-orange-300 focus:ring-2 focus:ring-gray-300"
                   onClick={() => handleFinishedClick(todo.id)}
                 >
                   Durdur
@@ -95,7 +95,7 @@ function Todo({ onActive, todo, onDeleteClick, onUpdateClick }) {
                   Gorevi Tamamla
                 </button>
                 <button
-                  className="px-4 py-2 m-1  text-sm font-medium text-white bg-red-500 border-gray-200 rounded-full hover:bg-red-300 focus:ring-2 focus:ring-gray-300"
+                  className="px-4 py-2 m-1  text-sm font-medium text-white bg-red-800 border-gray-200 rounded-full hover:bg-red-6000 focus:ring-2 focus:ring-gray-300"
                   onClick={handleDeleteClick}
                 >
                   Sil
