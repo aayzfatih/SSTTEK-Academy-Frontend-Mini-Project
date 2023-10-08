@@ -34,7 +34,7 @@ function TodoList({
   }, [workingRow]);
   useEffect(() => {
     onChangeElapsedTime(workingRow, time);
-  }, [onChangeElapsedTime, time, workingRow]);
+  }, [time]);
   return (
     <div>
       <table>
@@ -58,6 +58,7 @@ function TodoList({
             >
               <td>
                 <Todo
+                  isButtonDisabled={workingRow === todo.id}
                   onActive={changeActiveRow}
                   todo={todo}
                   onDeleteClick={onDeleteClick}

@@ -2,15 +2,13 @@ import { useState } from "react";
 
 function SearchBar({ onSubmit, todos }) {
   const [input, setInput] = useState("");
-  const [time, setTime] = useState();
-  const handleChange = (e) => {
-    setTime(e.target.value);
-  };
+  const [time, setTime] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input === undefined) {
+    if (input === undefined || input === "") {
       alert("Yapilacaklar girişine boş metin eklenemez");
-    } else if (time === undefined) {
+    } else if (time === undefined || time === "") {
       alert("Harcanan Sure alani bos olamaz");
     } else if (time === "0") {
       alert("Harcanica sure 0 olamaz ");
@@ -42,7 +40,7 @@ function SearchBar({ onSubmit, todos }) {
           type="number"
           placeholder="Tahmini Sure (saat)"
           value={time}
-          onChange={handleChange}
+          onChange={(e) => setTime(e.target.value)}
         />
         <button className="bg-blue-500 w-96 text-white hover:bg-blue-700 mt-4 p-3 rounded-full">
           Ekle

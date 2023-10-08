@@ -1,7 +1,13 @@
 import { useState } from "react";
 import EditTodo from "./EditTodo";
 
-function Todo({ onActive, todo, onDeleteClick, onUpdateClick }) {
+function Todo({
+  isButtonDisabled,
+  onActive,
+  todo,
+  onDeleteClick,
+  onUpdateClick,
+}) {
   const [editTodo, setEditTodo] = useState(false);
   const [bgColor, setbgColor] = useState("");
   const [completedDuty, setCompletedDuty] = useState(false);
@@ -95,14 +101,16 @@ function Todo({ onActive, todo, onDeleteClick, onUpdateClick }) {
                   Gorevi Tamamla
                 </button>
                 <button
-                  className="px-4 py-2 m-1  text-sm font-medium text-white bg-red-800 border-gray-200 rounded-full hover:bg-red-6000 focus:ring-2 focus:ring-gray-300"
+                  className="px-4 py-2 m-1  text-sm font-medium text-white bg-red-800 border-gray-200 rounded-full hover:bg-red-600 focus:ring-2 focus:ring-gray-300"
                   onClick={handleDeleteClick}
+                  disabled={isButtonDisabled}
                 >
                   Sil
                 </button>
                 <button
                   className="px-4 py-2 m-1  text-sm font-medium text-white bg-violet-500 border-gray-200 rounded-full hover:bg-violet-300 focus:ring-2 focus:ring-gray-300"
                   onClick={handleEditClick}
+                  disabled={isButtonDisabled}
                 >
                   Guncelle
                 </button>
