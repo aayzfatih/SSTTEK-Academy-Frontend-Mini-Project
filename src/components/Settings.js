@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import userImage from "./assets/user.jpg";
 function Settings() {
-  const [name, setName] = useState();
-  const [surName, setSurname] = useState();
-  const [age, setAge] = useState();
+  const [name, setName] = useState("");
+  const [surName, setSurname] = useState("");
+  const [age, setAge] = useState("");
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const localeUsers = JSON.parse(localStorage.getItem("users")) || [];

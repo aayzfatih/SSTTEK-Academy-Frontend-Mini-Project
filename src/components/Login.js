@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import loginImg from "./assets/login.jpg";
 function Login() {
   let navigate = useNavigate();
-  const [userName, setUserName] = useState();
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState();
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === "admin" && userName === "admin") {
-      let path = "todo";
-      navigate(path);
+      navigate("todo");
     } else {
       alert("Hatali giris yaptiniz tekrar deneyiniz");
     }

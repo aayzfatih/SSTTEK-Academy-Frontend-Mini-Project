@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 function SearchBar({ onSubmit, todos }) {
-  const [input, setInput] = useState();
-  const [time, setTime] = useState();
+  const [input, setInput] = useState("");
+  const [time, setTime] = useState("");
   const handleChange = (e) => {
     setTime(e.target.value);
   };

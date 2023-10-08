@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import EditTodo from "./EditTodo";
 
 function Todo({
@@ -12,8 +12,8 @@ function Todo({
   const [bgColor, setbgColor] = useState("");
   const [completedDuty, setCompletedDuty] = useState(false);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
-  const timerIdRef = useRef(0);
-  const [count, setCount] = useState(todo.elapsedTime);
+  const [workingRow, setWorkingRow] = useState(null);
+  const [time, setTime] = useState(todo.elapsedTime);
 
   const handleDeleteClick = () => {
     alert("Emin misiniz?");
@@ -27,18 +27,13 @@ function Todo({
   };
 
   const handleStartedTimeClick = (id) => {
-    if (timerIdRef.current) return;
-    timerIdRef.current = setInterval(
-      () => setCount((count) => count + 1),
-      1000
-    );
-    onActive(id, count);
+    setWorkingRow(todo.id);
+    onActive(id);
     setButtonDisabled(true);
   };
 
   const handleFinishedClick = () => {
-    clearInterval(timerIdRef.current);
-    timerIdRef.current = 0;
+    setWorkingRow(null);
     onActive(null);
     setButtonDisabled(false);
   };
@@ -47,10 +42,20 @@ function Todo({
     setCompletedDuty(true);
     setbgColor("bg-green-500");
   };
-
   useEffect(() => {
-    onChangeElapsedTime(todo.id, count);
-  }, [count]);
+    let intervalId;
+    if (workingRow !== null) {
+      console.log(workingRow);
+      intervalId = setInterval(() => setTime((c) => c + 1), 1000);
+    }
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [workingRow]);
+  useEffect(() => {
+    onChangeElapsedTime(workingRow, time);
+  }, [time]);
+
   const secondToHHMMSS = () => {
     const hours = Math.floor(todo.elapsedTime / 3600);
     const minutes = Math.floor((todo.elapsedTime - hours * 3600) / 60);

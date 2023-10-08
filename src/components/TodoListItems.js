@@ -15,7 +15,7 @@ function TodoListItems() {
 
   const createTodos = (input, time) => {
     const newTodo = {
-      id: todos.length + 1,
+      id: Date.now(),
       text: input,
       time: time,
       elapsedTime: 0,
