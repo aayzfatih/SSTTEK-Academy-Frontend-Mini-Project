@@ -13,7 +13,7 @@ function Todo({
   const [completedDuty, setCompletedDuty] = useState(false);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const timerIdRef = useRef(0);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(todo.elapsedTime);
 
   const handleDeleteClick = () => {
     alert("Emin misiniz?");
@@ -28,7 +28,10 @@ function Todo({
 
   const handleStartedTimeClick = (id) => {
     if (timerIdRef.current) return;
-    timerIdRef.current = setInterval(() => setCount((c) => c + 1), 1000);
+    timerIdRef.current = setInterval(
+      () => setCount((count) => count + 1),
+      1000
+    );
     onActive(id, count);
     setButtonDisabled(true);
   };
@@ -44,13 +47,17 @@ function Todo({
     setCompletedDuty(true);
     setbgColor("bg-green-500");
   };
-  useEffect(() => {
-    return () => clearInterval(timerIdRef.current);
-  }, []);
+
   useEffect(() => {
     onChangeElapsedTime(todo.id, count);
   }, [count]);
+  const secondToHHMMSS = () => {
+    const hours = Math.floor(todo.elapsedTime / 3600);
+    const minutes = Math.floor((todo.elapsedTime - hours * 3600) / 60);
+    const seconds = todo.elapsedTime - hours * 3600 - minutes * 60;
 
+    return hours + ":" + minutes + ":" + seconds;
+  };
   return (
     <div>
       {editTodo ? (
@@ -63,7 +70,9 @@ function Todo({
       ) : (
         <div
           className={`${
-            Math.floor(count / 3600) > todo.time ? "bg-red-500" : bgColor
+            Math.floor(todo.elapsedTime / 3600) > todo.time
+              ? "bg-red-500"
+              : bgColor
           } flex flex-row rounded-full mb-1 py-2`}
         >
           <div className="w-1/5 text-white flex flex-row items-center justify-center">
@@ -73,7 +82,7 @@ function Todo({
             {todo.time} saat
           </div>
           <div className="w-1/5 text-white flex flex-row items-center justify-center">
-            {todo.elapsedTime}
+            {secondToHHMMSS()}
           </div>
           <div>
             {completedDuty ? (

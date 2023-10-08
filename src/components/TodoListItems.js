@@ -18,7 +18,7 @@ function TodoListItems() {
       id: todos.length + 1,
       text: input,
       time: time,
-      elapsedTime: "",
+      elapsedTime: 0,
     };
 
     setTodos([...todos, newTodo]);
@@ -44,15 +44,11 @@ function TodoListItems() {
     setTodos(updateTodos);
   };
   const onChangeElapsedTime = (id, elapsedTime) => {
-    const hours = Math.floor(elapsedTime / 3600);
-    const minutes = Math.floor((elapsedTime - hours * 3600) / 60);
-    const seconds = elapsedTime - hours * 3600 - minutes * 60;
-
     const updateTodos = todos.map((todo) => {
       if (todo.id === id) {
         const newTodo = {
           ...todo,
-          elapsedTime: `${hours}:${minutes}:${seconds}`,
+          elapsedTime: elapsedTime,
         };
         return newTodo;
       }
