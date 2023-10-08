@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import EditTodo from "./EditTodo";
 
-function Todo({ todo, onDeleteClick, onUpdateClick }) {
+function Todo({
+  onChangeElapsedTime,
+  onActive,
+  todo,
+  onDeleteClick,
+  onUpdateClick,
+}) {
   const [editTodo, setEditTodo] = useState(false);
-  const [bgColor, setbgColor] = useState("bg-blue-500");
+  const [bgColor, setbgColor] = useState("");
   const [completedDuty, setCompletedDuty] = useState(false);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const timerIdRef = useRef(0);
@@ -20,17 +26,17 @@ function Todo({ todo, onDeleteClick, onUpdateClick }) {
     setEditTodo(false);
   };
 
-  const handleStartedTimeClick = () => {
+  const handleStartedTimeClick = (id) => {
     if (timerIdRef.current) return;
     timerIdRef.current = setInterval(() => setCount((c) => c + 1), 1000);
-    setbgColor("bg-amber-500");
+    onActive(id, count);
     setButtonDisabled(true);
   };
 
   const handleFinishedClick = () => {
     clearInterval(timerIdRef.current);
     timerIdRef.current = 0;
-    setbgColor("bg-blue-500");
+    onActive(null);
     setButtonDisabled(false);
   };
 
@@ -41,14 +47,9 @@ function Todo({ todo, onDeleteClick, onUpdateClick }) {
   useEffect(() => {
     return () => clearInterval(timerIdRef.current);
   }, []);
-
-  const secondsToHHMMSS = () => {
-    const hours = Math.floor(count / 3600);
-    const minutes = Math.floor((count - hours * 3600) / 60);
-    const seconds = count - hours * 3600 - minutes * 60;
-
-    return hours + ":" + minutes + ":" + seconds;
-  };
+  useEffect(() => {
+    onChangeElapsedTime(todo.id, count);
+  }, [count]);
 
   return (
     <div>
@@ -60,15 +61,19 @@ function Todo({ todo, onDeleteClick, onUpdateClick }) {
           onUpdateClick={onUpdateClick}
         />
       ) : (
-        <div className={`${bgColor} flex flex-row rounded-full mb-1 py-2`}>
+        <div
+          className={`${
+            Math.floor(count / 3600) > todo.time ? "bg-red-500" : bgColor
+          } flex flex-row rounded-full mb-1 py-2`}
+        >
           <div className="w-1/5 text-white flex flex-row items-center justify-center">
             {todo.text}
           </div>
           <div className="w-1/5 text-white flex flex-row items-center justify-center">
-            {todo.time}
+            {todo.time} saat
           </div>
           <div className="w-1/5 text-white flex flex-row items-center justify-center">
-            {secondsToHHMMSS()}
+            {todo.elapsedTime}
           </div>
           <div>
             {completedDuty ? (

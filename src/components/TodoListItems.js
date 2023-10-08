@@ -18,6 +18,7 @@ function TodoListItems() {
       id: todos.length + 1,
       text: input,
       time: time,
+      elapsedTime: "",
     };
 
     setTodos([...todos, newTodo]);
@@ -42,7 +43,23 @@ function TodoListItems() {
     });
     setTodos(updateTodos);
   };
+  const onChangeElapsedTime = (id, elapsedTime) => {
+    const hours = Math.floor(elapsedTime / 3600);
+    const minutes = Math.floor((elapsedTime - hours * 3600) / 60);
+    const seconds = elapsedTime - hours * 3600 - minutes * 60;
 
+    const updateTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        const newTodo = {
+          ...todo,
+          elapsedTime: `${hours}:${minutes}:${seconds}`,
+        };
+        return newTodo;
+      }
+      return todo;
+    });
+    setTodos(updateTodos);
+  };
   return (
     <div>
       <SearchBar todos={todos} onSubmit={createTodos} />
@@ -50,6 +67,7 @@ function TodoListItems() {
         todos={todos}
         onDeleteClick={handleDeleteClick}
         onUpdateClick={handleUpdateClick}
+        onChangeElapsedTime={onChangeElapsedTime}
       />
     </div>
   );
