@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Todo from "./Todo";
 import "./css/TodoList.css";
 
@@ -9,11 +9,32 @@ function TodoList({
   onUpdateClick,
 }) {
   const [workingRow, setWorkingRow] = useState(null);
-
-  const changeActiveRow = (id) => {
-    setWorkingRow(id);
+  const [time, setTime] = useState(0);
+  const changeActiveRow = (id, initialTime) => {
+    if (id !== workingRow) {
+      setWorkingRow(id);
+      setTime(initialTime);
+    } else {
+      setWorkingRow(null);
+    }
   };
+  useEffect(() => {
+    let intervalId;
+    if (workingRow !== null) {
+      intervalId = setInterval(() => {
+        setTime((time) => time + 1);
+      }, 1000);
+    } else {
+      clearInterval(intervalId);
+    }
 
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [workingRow]);
+  useEffect(() => {
+    onChangeElapsedTime(workingRow, time);
+  }, [time]);
   return (
     <div>
       <table>
@@ -37,7 +58,6 @@ function TodoList({
             >
               <td>
                 <Todo
-                  onChangeElapsedTime={onChangeElapsedTime}
                   onActive={changeActiveRow}
                   todo={todo}
                   onDeleteClick={onDeleteClick}

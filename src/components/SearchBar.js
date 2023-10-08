@@ -2,13 +2,13 @@ import { useState } from "react";
 
 function SearchBar({ onSubmit, todos }) {
   const [input, setInput] = useState("");
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState();
   const handleChange = (e) => {
     setTime(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input === undefined || input === "") {
+    if (input === undefined) {
       alert("Yapilacaklar girişine boş metin eklenemez");
     } else if (time === undefined) {
       alert("Harcanan Sure alani bos olamaz");
