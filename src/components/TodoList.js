@@ -11,10 +11,8 @@ function TodoList({
   const [workingRow, setWorkingRow] = useState(null);
   const [time, setTime] = useState(0);
   const changeActiveRow = (id, initialTime) => {
-    if (id !== workingRow) {
-      setWorkingRow(id);
-      setTime(initialTime);
-    }
+    setWorkingRow(id);
+    setTime(initialTime);
   };
   useEffect(() => {
     let intervalId;
@@ -25,7 +23,6 @@ function TodoList({
     } else {
       clearInterval(intervalId);
     }
-
     return () => {
       clearInterval(intervalId);
     };
