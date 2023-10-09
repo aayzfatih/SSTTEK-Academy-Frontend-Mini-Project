@@ -23,8 +23,8 @@ function Todo({
     setEditTodo(false);
   };
 
-  const handleStartedTimeClick = (id) => {
-    onActive(id, todo.elapsedTime);
+  const handleStartedTimeClick = (id, elapsedTime) => {
+    onActive(id, elapsedTime);
   };
 
   const handleFinishedClick = () => {
@@ -84,13 +84,16 @@ function Todo({
               <div className="flex justify-center items-center py-1 ">
                 <button
                   className="px-4 py-2 m-1 text-sm font-medium text-white bg-green-500 border-gray-200 rounded-full hover:bg-green-300 focus:ring-2 focus:ring-gray-300"
-                  onClick={() => handleStartedTimeClick(todo.id)}
+                  onClick={() =>
+                    handleStartedTimeClick(todo.id, todo.elapsedTime)
+                  }
                 >
                   Başlat
                 </button>
                 <button
                   className="px-4 py-2 m-1  text-sm font-medium text-white bg-orange-500 border-gray-200 rounded-full hover:bg-orange-300 focus:ring-2 focus:ring-gray-300"
-                  onClick={() => handleFinishedClick(todo.id)}
+                  onClick={handleFinishedClick}
+                  disabled={!isButtonDisabled}
                 >
                   Durdur
                 </button>

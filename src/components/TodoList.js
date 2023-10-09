@@ -14,8 +14,6 @@ function TodoList({
     if (id !== workingRow) {
       setWorkingRow(id);
       setTime(initialTime);
-    } else {
-      setWorkingRow(null);
     }
   };
   useEffect(() => {
